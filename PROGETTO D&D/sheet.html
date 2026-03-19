@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheda Personaggio – D&D Manager</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body class="dark">
+
+    <!-- PULSANTE IMPOSTAZIONI -->
+    <button id="settingsBtn" onclick="openSettings()" title="Impostazioni">⚙️</button>
+
+    <div style="padding: 20px;">
+        <div class="nav">
+            <button class="secondary" onclick="window.location.href='campagna.html'" data-i18n="btn-back">
+                ← Indietro
+            </button>
+            <div>
+                <button onclick="showFront()" data-i18n="btn-front">Fronte</button>
+                <button onclick="showBack()" data-i18n="btn-back-sheet">Retro</button>
+            </div>
+        </div>
+
+        <div id="sheetContent"></div>
+    </div>
+
+    <!-- MODALE IMPOSTAZIONI -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <h3 data-i18n="settings-title">⚙️ Impostazioni</h3>
+
+            <!-- TEMA -->
+            <div class="settings-section">
+                <h4 data-i18n="settings-theme">🎨 Tema Pulsanti</h4>
+                <div class="theme-options">
+                    <button class="theme-btn preview-normal" data-theme="normal" onclick="applyTheme('normal')"
+                        data-i18n="theme-normal">⚔️ Normale</button>
+                    <button class="theme-btn preview-dark" data-theme="dark-style" onclick="applyTheme('dark-style')"
+                        data-i18n="theme-dark">🌑 Dark</button>
+                    <button class="theme-btn preview-natura" data-theme="natura" onclick="applyTheme('natura')"
+                        data-i18n="theme-natura">🌿 Natura</button>
+                    <button class="theme-btn preview-neon" data-theme="neon" onclick="applyTheme('neon')"
+                        data-i18n="theme-neon">💚 NEON</button>
+                    <button class="theme-btn preview-futuro" data-theme="futuro" onclick="applyTheme('futuro')"
+                        data-i18n="theme-futuro">🔮 Futuro</button>
+                </div>
+            </div>
+
+            <!-- LINGUA -->
+            <div class="settings-section">
+                <h4 data-i18n="settings-lang">🌍 Lingua</h4>
+                <select class="lang-select" id="langSelect" onchange="setLanguage(this.value)">
+                    <option value="it">🇮🇹 Italiano</option>
+                    <option value="en">🇬🇧 English</option>
+                    <option value="es">🇪🇸 Español</option>
+                    <option value="pt">🇧🇷 Português</option>
+                    <option value="de">🇩🇪 Deutsch</option>
+                </select>
+            </div>
+
+            <!-- ACCOUNT -->
+            <div class="settings-section">
+                <h4 data-i18n="settings-account">👤 Account</h4>
+                <div id="loginArea">
+                    <button class="google-login-btn" onclick="loginWithGoogle()">
+                        <svg width="20" height="20" viewBox="0 0 48 48">
+                            <path fill="#FFC107"
+                                d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z" />
+                            <path fill="#FF3D00"
+                                d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z" />
+                            <path fill="#4CAF50"
+                                d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z" />
+                            <path fill="#1976D2"
+                                d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z" />
+                        </svg>
+                        <span data-i18n="btn-google-login">Accedi con Google</span>
+                    </button>
+                </div>
+                <div id="userArea" style="display:none; flex-direction:column; align-items:flex-start; gap:8px;">
+                    <div class="user-info">
+                        <img class="user-avatar" id="userAvatar" src="" alt="avatar">
+                        <span id="userName"></span>
+                    </div>
+                    <button class="secondary" onclick="logoutGoogle()" data-i18n="btn-logout">Esci</button>
+                </div>
+                <div class="sync-status" id="syncStatus" data-i18n="sync-idle">Nessun account connesso</div>
+            </div>
+
+            <button class="secondary" onclick="closeSettings()">✕ Chiudi</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="JAVASCRIPT/i18n.js"></script>
+    <script src="JAVASCRIPT/script.js"></script>
+    <script type="module" src="JAVASCRIPT/firebase-config.js"></script>
+    <script>
+        loadSavedTheme();
+        applyTranslations();
+
+        currentCampaign = localStorage.getItem("currentCampaign");
+        showFront();
+
+        if (typeof loginWithGoogle === "undefined") {
+            window.loginWithGoogle = () => alert("Configura Firebase in JAVASCRIPT/firebase-config.js");
+            window.logoutGoogle = () => { };
+        }
+    </script>
+
+</body>
+
+</html>

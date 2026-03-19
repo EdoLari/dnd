@@ -1,0 +1,462 @@
+/* =============================================
+   BASE VARIABLES & DARK/LIGHT THEME
+   ============================================= */
+:root {
+    --bg: #1a1a1a;
+    --card: #f4e7c5;
+    --text: #2c2c2c;
+    --accent: #c9a44d;
+
+    /* Button theme vars (default = normal) */
+    --btn-primary-bg: #c9a44d;
+    --btn-primary-color: #2c2c2c;
+    --btn-primary-border: transparent;
+    --btn-primary-shadow: none;
+
+    --btn-secondary-bg: #666;
+    --btn-secondary-color: #ffffff;
+
+    --btn-glow: none;
+}
+
+body.dark {
+    --bg: #1a1a1a;
+    --card: #2e2e2e;
+    --text: #f4f4f4;
+}
+
+body.light {
+    --bg: #e8dcc0;
+    --card: #fff5da;
+    --text: #2c2c2c;
+}
+
+/* =============================================
+   BUTTON COLOR THEMES
+   ============================================= */
+
+/* THEME: Dark (nero con scritta rossa) */
+body.theme-dark-style .primary,
+body.theme-dark-style button.primary {
+    background: #000000 !important;
+    color: #ff0000 !important;
+    border: 1px solid #ff0000 !important;
+}
+body.theme-dark-style .secondary,
+body.theme-dark-style button.secondary {
+    background: #1a1a1a !important;
+    color: #cc0000 !important;
+    border: 1px solid #cc0000 !important;
+}
+
+/* THEME: Natura (bianco con scritta verde) */
+body.theme-natura .primary,
+body.theme-natura button.primary {
+    background: #ffffff !important;
+    color: #228b22 !important;
+    border: 1px solid #228b22 !important;
+}
+body.theme-natura .secondary,
+body.theme-natura button.secondary {
+    background: #f0f0f0 !important;
+    color: #1a6b1a !important;
+    border: 1px solid #1a6b1a !important;
+}
+
+/* THEME: NEON (nero con scritta verde neon) */
+body.theme-neon .primary,
+body.theme-neon button.primary {
+    background: #000000 !important;
+    color: #00ff41 !important;
+    border: 1px solid #00ff41 !important;
+    box-shadow: 0 0 8px #00ff41, 0 0 20px rgba(0,255,65,0.3) !important;
+    text-shadow: 0 0 8px #00ff41;
+}
+body.theme-neon .secondary,
+body.theme-neon button.secondary {
+    background: #111 !important;
+    color: #00cc33 !important;
+    border: 1px solid #00cc33 !important;
+    box-shadow: 0 0 6px rgba(0,204,51,0.4) !important;
+}
+
+/* THEME: Futuro (nero con scritta viola neon) */
+body.theme-futuro .primary,
+body.theme-futuro button.primary {
+    background: #000000 !important;
+    color: #bf00ff !important;
+    border: 1px solid #bf00ff !important;
+    box-shadow: 0 0 8px #bf00ff, 0 0 20px rgba(191,0,255,0.3) !important;
+    text-shadow: 0 0 8px #bf00ff;
+}
+body.theme-futuro .secondary,
+body.theme-futuro button.secondary {
+    background: #111 !important;
+    color: #9900cc !important;
+    border: 1px solid #9900cc !important;
+    box-shadow: 0 0 6px rgba(153,0,204,0.4) !important;
+}
+
+/* =============================================
+   BODY & BASE
+   ============================================= */
+body {
+    margin: 0;
+    font-family: Georgia, serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.3s, color 0.3s;
+}
+
+.screen {
+    display: none;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.active {
+    display: block;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* =============================================
+   BUTTONS
+   ============================================= */
+button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 4px;
+    transition: transform 0.15s, box-shadow 0.15s, background 0.2s, color 0.2s, border 0.2s;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.1);
+}
+
+button:active {
+    transform: translateY(0px);
+}
+
+.primary {
+    background: var(--accent);
+    color: #2c2c2c;
+}
+
+.secondary {
+    background: #666;
+    color: white;
+}
+
+.big {
+    padding: 20px 50px;
+    font-size: 1.4em;
+    letter-spacing: 2px;
+    border-radius: 12px;
+}
+
+/* =============================================
+   CARDS & LAYOUT
+   ============================================= */
+.card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 15px;
+    margin: 15px 0;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid #888;
+    margin: 4px 0;
+    box-sizing: border-box;
+}
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+}
+
+.hp-bar {
+    width: 100%;
+    height: 20px;
+    background: #555;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 6px 0;
+}
+
+.hp-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #9b0000, #ff4444);
+    transition: width 0.3s;
+}
+
+img.profile {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #444;
+    margin-right: 15px;
+}
+
+/* =============================================
+   NAV
+   ============================================= */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toggle {
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* =============================================
+   SHEET
+   ============================================= */
+.sheet-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 20px;
+}
+
+@media(max-width:768px) {
+    .sheet-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.save-throw-box {
+    background: var(--card);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+/* =============================================
+   MODALS
+   ============================================= */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--card);
+    padding: 30px;
+    border-radius: 16px;
+    text-align: center;
+    width: 340px;
+    max-width: 95vw;
+    box-shadow: 0 0 30px black;
+    color: var(--text);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.danger {
+    background: #a30000;
+    color: white;
+}
+
+/* =============================================
+   SETTINGS MODAL
+   ============================================= */
+.settings-section {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.settings-section h4 {
+    margin: 0 0 10px 0;
+    font-size: 1em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.7;
+}
+
+.theme-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.theme-btn {
+    padding: 10px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.82em;
+    border: 2px solid transparent;
+    transition: border 0.2s, transform 0.15s;
+}
+
+.theme-btn:hover {
+    transform: scale(1.04);
+}
+
+.theme-btn.selected {
+    border: 2px solid #3399ff !important;
+    outline: 2px solid rgba(51, 153, 255, 0.4);
+}
+
+/* Theme preview button styles */
+.theme-btn.preview-normal  { background: #c9a44d; color: #2c2c2c; }
+.theme-btn.preview-dark    { background: #000; color: #ff0000; border: 1px solid #ff0000; }
+.theme-btn.preview-natura  { background: #fff; color: #228b22; border: 1px solid #228b22; }
+.theme-btn.preview-neon    { background: #000; color: #00ff41; border: 1px solid #00ff41; box-shadow: 0 0 6px #00ff41; text-shadow: 0 0 6px #00ff41; }
+.theme-btn.preview-futuro  { background: #000; color: #bf00ff; border: 1px solid #bf00ff; box-shadow: 0 0 6px #bf00ff; text-shadow: 0 0 6px #bf00ff; }
+
+.lang-select {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #888;
+    font-size: 1em;
+    cursor: pointer;
+    background: var(--card);
+    color: var(--text);
+}
+
+/* =============================================
+   SETTINGS BUTTON (floating gear)
+   ============================================= */
+#settingsBtn {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    z-index: 900;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    font-size: 1.2em;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+}
+
+#settingsBtn:hover {
+    background: rgba(0,0,0,0.8);
+    transform: rotate(30deg) translateY(0);
+}
+
+/* =============================================
+   GOOGLE LOGIN
+   ============================================= */
+.google-login-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: bold;
+    width: 100%;
+    justify-content: center;
+    margin-top: 6px;
+    transition: box-shadow 0.2s;
+}
+
+.google-login-btn:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transform: none;
+    filter: none;
+}
+
+.google-login-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.sync-status {
+    font-size: 0.8em;
+    opacity: 0.7;
+    margin-top: 6px;
+    min-height: 20px;
+}
+
+.sync-status.ok { color: #22aa44; }
+.sync-status.err { color: #ff4444; }
+.sync-status.loading { color: #aaaaff; }
+
+/* Export/Import buttons in campaign cards */
+.campaign-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.btn-export { background: #336699; color: white; }
+.btn-import { background: #334466; color: white; }
